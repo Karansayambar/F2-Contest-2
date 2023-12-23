@@ -179,11 +179,3 @@ ol > li{
 .tag[data-tag].selected {
     background-color: yellow;
 } 
-
-#hide-last-page{
-    display: none;
-}
-
-#show-last-page{
-    display: block;
-}

@@ -122,7 +122,7 @@ function checkAnswer(selectedOptionIndex) {
         userScore++;
     }
 
-    currentCategoryIndex++;
+    nextQuestion();
     loadQuestion();
 }
 
