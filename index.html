@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <figure>
+                <img src="./assets/logo.png">
+            </figure>
+            <ul>
+                <li><a href="#">How It Works ?</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><button class="btn1">Login</button></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="section1">
+        <div id="hero">
+            <div>
+                <div>
+                    <p class="head">
+                        Learn <br>
+                        new concepts <br>
+                        for each question
+                    </p>
+                </div>
+                <div class="hero-mid">
+                    <hr>
+                    <p class="para">We help you prepare for exams and quizes
+                    </p>
+                </div>
+                <button class="btn2" onclick="buttonOnClick()">Start solving</button>
+            </div>
+            <figure>
+                <img class="hero-img" src="./assets/hero-img.png">
+            </figure>
+        </div>
+    </section>
+    <section id="section2">
+        <div id="Badge">
+            <i class="fa-solid fa-x" onclick="buttonOnClick()"></i>
+            <p class="head">Choose your favorite topic</p>
+            <p class="para">Select more than 5 topics to start quiz</p>
+            <div class="TagBadge">
+                <div class="tag" onclick="toggleTag('HTML')">HTML</div>
+                <div class="tag" onclick="toggleTag('CSS')">CSS</div>
+                <div class="tag" onclick="toggleTag('javaScript')">javaScript</div>
+                <div class="tag" onclick="toggleTag('JAVA')">JAVA</div>
+                <div class="tag" onclick="toggleTag('SQL')">SQL</div>
+                <div class="tag">TagBadge</div>
+                <div class="tag">TagBadge</div>
+                <div class="tag">TagBadge</div>
+                <div class="tag">TagBadge</div>
+                <div class="tag">TagBadge</div>
+            </div>
+            <button class="btn3" onclick="startQuize()">Start Quiz</button>
+        </div>
+    </section>
+    <section>
+        <div class="quiz">
+            <div>
+                <p class="qiestion"></p>
+            </div>
+            <div class="options">
+                <ul>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+            <button onclick="nextQuestion()">prev</button>
+            <button>next</button>
+        </div>
+    </section>
+    <div id="selectedTagsContainer">
+        <p>Selected Tags: <span id="selectedTags"></span></p>
+    </div>
+
+    <div id="question-container"></div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
