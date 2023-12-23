@@ -51,42 +51,52 @@
             <p class="head">Choose your favorite topic</p>
             <p class="para">Select more than 5 topics to start quiz</p>
             <div class="TagBadge">
-                <div class="tag" onclick="toggleTag('HTML')">HTML</div>
-                <div class="tag" onclick="toggleTag('CSS')">CSS</div>
-                <div class="tag" onclick="toggleTag('javaScript')">javaScript</div>
-                <div class="tag" onclick="toggleTag('JAVA')">JAVA</div>
-                <div class="tag" onclick="toggleTag('SQL')">SQL</div>
-                <div class="tag">TagBadge</div>
-                <div class="tag">TagBadge</div>
-                <div class="tag">TagBadge</div>
-                <div class="tag">TagBadge</div>
-                <div class="tag">TagBadge</div>
+                <div id="tag-1" class="tag" onclick="toggleTag(event)">HTML</div>
+                <div id="tag-2" class="tag" onclick="toggleTag(event)">CSS</div>
+                <div id="tag-3" class="tag" onclick="toggleTag(event)">javaScript</div>
+                <div id="tag-4" class="tag" onclick="toggleTag(event)">JAVA</div>
+                <div id="tag-5" class="tag" onclick="toggleTag(event)">SQL</div>
+                <div id="tag-6" class="tag" onclick="toggleTag(event)">TagBadge</div>
+                <div id="tag-7" class="tag" onclick="toggleTag(event)">TagBadge</div>
+                <div id="tag-8" class="tag" onclick="toggleTag(event)">TagBadge</div>
+                <div id="tag-9" class="tag" onclick="toggleTag(event)">TagBadge</div>
+                <div id="tag-10" class="tag" onclick="toggleTag(event)">TagBadge</div>
             </div>
             <button class="btn3" onclick="startQuize()">Start Quiz</button>
         </div>
     </section>
-    <section>
-        <div class="quiz">
-            <div>
-                <p class="qiestion"></p>
-            </div>
-            <div class="options">
-                <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul>
-            </div>
-            <button onclick="nextQuestion()">prev</button>
-            <button>next</button>
+    <section id="quiz">
+        <div class="question">
+            <p id="quiz-question-container"></p>
+        </div>
+        <div class="options">
+            <ul id="quiz-options-container">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div class="change">
+            <button class="btn2" onclick="prevQuestion()">prev</button>
+            <button class="btn2" onclick="nextQuestion()">next</button>
         </div>
     </section>
-    <div id="selectedTagsContainer">
-        <p>Selected Tags: <span id="selectedTags"></span></p>
-    </div>
+<div id="progress-bar-container">
+    <div id="progress-bar"></div>
+</div>
 
-    <div id="question-container"></div>
+<section id="hide-last-page">
+    <section id="home">
+        <p>Welcome to the Quiz App! Click the button below to start the quiz.</p>
+        <button id="start-button" class="btn2">Start Quiz</button>
+    </section>
+    
+    <section id="results">
+        <p>Your final score is: <span id="final-score"></span></p>
+        <button id="restart-button" class="btn2">Restart Quiz</button>
+    </section>
+</section>
 
     <script src="./script.js"></script>
 </body>

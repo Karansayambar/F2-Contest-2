@@ -2,7 +2,7 @@ body{
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
-    width: 100%;5
+    width: 100%;
 }
 header{
     position: sticky;
@@ -116,6 +116,14 @@ hr{
     background-color: lightgray;
     padding: 15px;
 }
+
+.tag-active{
+    text-align: left;
+    width: 170px;
+    padding: 15px;
+    background-color: yellow;
+}
+
 .btn3{
     width: max-content;
     background: linear-gradient(95.34deg, #FCC822 0%, #FFCD2E 100%);
@@ -125,20 +133,6 @@ hr{
     position: absolute;
     bottom: 30px;
     right: 40px;
-}
-.selected-tag {
-    display: inline-block;
-    background-color: #4CAF50; /* Green background color for selected tags */
-    color: white;
-    padding: 5px 10px;
-    margin: 5px;
-    border-radius: 5px;
-}
-
-.remove-tag {
-    cursor: pointer;
-    margin-left: 5px;
-    font-weight: bold;
 }
 
 #quiz{
@@ -184,4 +178,12 @@ ol > li{
 
 .tag[data-tag].selected {
     background-color: yellow;
+} 
+
+#hide-last-page{
+    display: none;
+}
+
+#show-last-page{
+    display: block;
 }

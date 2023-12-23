@@ -1,112 +1,6 @@
-
-let selectedTags = [];
-let currentQuestionIndex = 0;
-let userScore = 0;
-let filteredQuizData;
-
-function buttonOnClick(){
-    let badge = document.getElementById('Badge');
-    let hero = document.getElementById('hero');
-
-    if(badge.style.display === 'none'){
-        badge.style.display = 'flex';
-        hero.style.opacity = 0.1;
-    }else{
-        badge.style.display = 'none';
-        hero.style.opacity = 1;
-    }
-}
-function startQuize(){
-    filteredQuizData= quizData.filter(question => selectedTags.includes(question.category));
-
-    if(selectedTags.length >= 5){
-        currentQuestionIndex = 0;
-        userScore = 0;
-
-        loadQuestion();
-    }else{
-        alert("Select at least 5 Tags to Start the Quize");
-    }
-}
-
-function loadQuestion() {
-    const questionContainer = document.getElementById('question-container');
-    questionContainer.innerHTML = ' ';
-
-    const currentQuestion = filteredQuizData[currentQuestionIndex];
-
-    if (currentQuestion) {
-        const questionElement = document.createElement('p');
-        questionElement.textContent = currentQuestion.question;
-
-        const optionsElement = document.createElement('ul');
-
-        if (currentQuestion.options) {
-            currentQuestion.options.forEach((option, index) => {
-                const optionItem = document.createElement('li');
-
-                optionItem.textContent = option;
-                optionItem.addEventListener('click', () => checkAnswer(index, currentQuestion));
-                optionsElement.appendChild(optionItem);
-            });
-        } else {
-            console.error('Options are not defined for the current question:', currentQuestion);
-        }
-
-        const scoreElement = document.createElement('p');
-        scoreElement.textContent = 'Score: ' + userScore;
-
-        questionContainer.appendChild(questionElement);
-        questionContainer.appendChild(optionsElement);
-        questionContainer.appendChild(scoreElement);
-    } else {
-        console.error('Current question is not defined.');
-    }
-}
-
-function checkAnswer(selectedIndex, currentQuestion){
-    const selectedAnswer = currentQuestion.options[selectedIndex];
-
-    if(selectedAnswer === currentQuestion.answer){
-        userScore += 1;
-    }
-
-    nextQuestion();
-}
-
-function nextQuestion(){
-    currentQuestionIndex += 1;
-    if(currentQuestionIndex < filteredQuizData.length){
-        loadQuestion();
-    }else{
-        alert(`Quize completes Your final Score is${userScore}`);
-    }
-    selectedTagsContainer.innerHTML = selectedTags
-        .map(selectedTag => `<span class="selected-tag">${selectedTag} <span class="remove-tag" onclick="removeTag('${selectedTag}')">&times;</span></span>`)
-        .join(', ');
-}
-
-function removeTag(tag) {
-    selectedTags = selectedTags.filter(selectedTag => selectedTag !== tag);
-
-    const selectedTagsContainer = document.getElementById('selectedTags');
-    selectedTagsContainer.innerHTML = selectedTags
-        .map(selectedTag => `<span class="selected-tag">${selectedTag} <span class="remove-tag" onclick="removeTag('${selectedTag}')">&times;</span></span>`)
-        .join(', ');
-}
-
-function toggleTag(tag){
-    const selectedTagsContainer = document.getElementById('selectedTags');
-    if(selectedTags.includes(tag)){
-        selectedTags = selectedTags.filter(selectedTags => selectedTags !== tag);
-    }else{
-        selectedTags.push(tag);
-    }
-
-    selectedTagsContainer.textContent = selectedTags.join(', ');
-}
 let quizData = [
     {
+        "id": "tag-1",
         "category": "HTML",
         "questions": [
             {
@@ -122,6 +16,7 @@ let quizData = [
         ]
     },
     {
+        "id": "tag-2",
         "category": "CSS",
         "questions": [
             {
@@ -137,6 +32,7 @@ let quizData = [
         ]
     },
     {
+        "id": "tag-3",
         "category": "JavaScript",
         "questions": [
             {
@@ -149,42 +45,152 @@ let quizData = [
                 "options": ["Checking the type of a variable", "Converting a variable to a specific type", "Concatenating two strings", "None of the above"],
                 "answer": "Checking the type of a variable"
             },
-            // Add more JavaScript questions...
         ]
-    },
-    {
-        "category": "Java",
-        "questions": [
-            {
-                "question": "Which of the following is a keyword in Java?",
-                "options": ["void", "static", "this", "all of the above"],
-                "answer": "all of the above"
-            },
-            {
-                "question": "What is the default value of a local variable in Java?",
-                "options": ["0", "null", "undefined", "Depends on the data type"],
-                "answer": "Depends on the data type"
-            },
-            // Add more Java questions...
-        ]
-    },
-    {
-        "category": "SQL",
-        "questions": [
-            {
-                "question": "What does SQL stand for?",
-                "options": ["Structured Query Language", "Sequential Query Language", "Structured Question Language", "Simple Question Language"],
-                "answer": "Structured Query Language"
-            },
-            {
-                "question": "Which SQL statement is used to update data in a database?",
-                "options": ["UPDATE", "MODIFY", "SAVE", "CHANGE"],
-                "answer": "UPDATE"
-            },
-            // Add more SQL questions...
-        ]
-    },
-    // Add more categories...
+    }
 ];
 
+let selectedTags = [];
+let currentCategoryIndex = 0;
+let currentQuestionIndex = 0;
+let userScore = 0;
+let filteredQuizData;
+
+function buttonOnClick() {
+    let badge = document.getElementById('Badge');
+    let hero = document.getElementById('hero');
+
+    if (badge.style.display === 'none') {
+        badge.style.display = 'flex';
+        hero.style.opacity = 0.1;
+    } else {
+        badge.style.display = 'none';
+        hero.style.opacity = 1;
+    }
+}
+
+function startQuize() {
+    filteredQuizData = quizData.filter(question => selectedTags.includes(question.id));
+    if (selectedTags.length >= 5) {
+        currentCategoryIndex = 0;
+        currentQuestionIndex = 0;
+        userScore = 0;
+
+        loadQuestion();
+    } else {
+        alert("Select at least 5 Tags to Start the Quiz");
+    }
+}
+
+function toggleTag(event) {
+   
+    let tagId = event.target.id;
+
+    if (selectedTags.includes(tagId)) {
+        selectedTags = selectedTags.filter(selectedTag => selectedTag !== tagId);
+    } else {
+        selectedTags.push(tagId);
+    }
+
+    document.getElementById(tagId).classList = 'tag-active'
+}
+
+function loadQuestion() {
+    if (currentCategoryIndex < filteredQuizData.length) {
+        const questionContainer = document.getElementById('quiz-question-container');
+        const optionsContainer = document.getElementById('quiz-options-container');
+
+        const currentQuestion = filteredQuizData[currentCategoryIndex];
+
+        questionContainer.textContent = currentQuestion.questions[currentQuestionIndex].question;
+
+        optionsContainer.innerHTML = currentQuestion.questions[currentQuestionIndex].options
+            .map((option, index) => `<li onclick="checkAnswer(${index})">${option}</li>`)
+            .join('');
+
+        document.getElementById('quiz').style.display = 'block';
+        document.getElementById('Badge').style.display = 'none';
+    } else {
+        displayResults();
+    }
+}
+
+function checkAnswer(selectedOptionIndex) {
+    const currentQuestion = filteredQuizData[currentCategoryIndex].questions[currentQuestionIndex];
+    const selectedOption = currentQuestion.options[selectedOptionIndex];
+
+    if (selectedOption === currentQuestion.answer) {
+        userScore++;
+    }
+
+    currentCategoryIndex++;
+    loadQuestion();
+}
+
+function displayResults() {
+    const quizSection = document.getElementById('quiz');
+    const resultsSection = document.getElementById('results');
+
+    quizSection.style.display = 'none';
+    resultsSection.style.display = 'block';
+
+    document.getElementById('final-score').textContent = userScore;
+}
+
+function removeTag(tag) {
+    selectedTags = selectedTags.filter(selectedTag => selectedTag !== tag);
+    document.querySelector(`.tag[data-tag="${tag}"]`).style.backgroundColor = '';
+    toggleTag();
+}
+
+
+function nextQuestion() {
+    let flag = false;
+    quizData.map((category) => {
+        
+        if(category.questions.length == currentQuestionIndex + 1){
+            currentCategoryIndex++;
+            currentQuestionIndex = 0;
+            flag = true
+        }
+            
+    })
+    if(!flag){
+        currentQuestionIndex++;
+    }
+    loadQuestion();
+}
+
+function prevQuestion() {
+    if (currentCategoryIndex > 0) {
+        let flag = false;
+        quizData.map((category) => {
+            
+            if(currentQuestionIndex == 0){
+                currentCategoryIndex--;
+                currentQuestionIndex = category.questions.length -1;
+                flag = true
+            }
+        })
+        if(!flag){
+            currentQuestionIndex--;
+        }
+        console.log(currentCategoryIndex, currentQuestionIndex)
+        loadQuestion();
+    }
+}
+
+function updateProgressBar() {
+    const progressBar = document.getElementById('progress-bar');
+    const progress = ((currentCategoryIndex + 1) / filteredQuizData.length) * 100;
+    progressBar.style.width = `${progress}%`;
+}
+
+function restartQuiz() {
+    document.getElementById('results').style.display = 'none';
+    document.getElementById('home').style.display = 'block';
+}
+
+// Add event listeners to your buttons
+document.getElementById('start-button').addEventListener('click', startQuiz);
+document.getElementById('restart-button').addEventListener('click', restartQuiz);
 
