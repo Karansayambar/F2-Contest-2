@@ -179,3 +179,90 @@ ol > li{
 .tag[data-tag].selected {
     background-color: yellow;
 } 
+
+@media (max-width: 480px) {
+    nav {
+        padding: 10px;
+    }
+
+    ul {
+        gap: 2rem;
+    }
+
+    .btn1 {
+        padding: 8px;
+    }
+
+    #hero {
+        padding: 0px 20px;
+        flex-direction: column;
+        height: auto;
+    }
+
+    .head {
+        font-size: 32px;
+        line-height: 32px;
+    }
+
+    .hero-img {
+        height: 300px;
+        padding-left: 0;
+    }
+
+    #Badge {
+        width: 100%;
+        margin: 20px;
+        padding-inline: 10px;
+    }
+
+    .TagBadge {
+        gap: 1rem;
+        padding: 15px 5px;
+    }
+
+    .tag,
+    .tag-active {
+        width: 100%;
+    }
+
+    .btn3 {
+        width: 100%;
+        bottom: 10px;
+        right: 0;
+    }
+
+    #quiz {
+        width: 100%;
+        margin: 20px;
+    }
+
+    .question {
+        padding: 15px;
+    }
+
+    .options {
+        align-items: center;
+    }
+
+    ol > li {
+        margin-top: 8px;
+    }
+
+    .change {
+        flex-direction: column;
+    }
+
+    .tag[data-tag] {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .tag[data-tag]:hover {
+        background-color: lightyellow;
+    }
+
+    .tag[data-tag].selected {
+        background-color: yellow;
+    }
+}
+
