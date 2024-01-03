@@ -13,7 +13,7 @@ nav{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 80px;
+    padding: 0px 80px;
     box-shadow: 2px 2px 10px 0px gray;
 }
 ul{
@@ -96,32 +96,46 @@ hr{
     position: relative;
     background-color: white;
 }
-.TagBadge{
-    display: flex;
-    align-items: center;
-    justify-content: safe;
-    gap: 3rem;
-    flex-wrap: wrap;
-    padding: 30px 10px;
-}
+
 #Badge > i{
     position: absolute;
     top: 20px;
     right: 30px;
     font-size: 20px;
 }
-.tag{
-    text-align: left;
-    width: 170px;
-    background-color: lightgray;
-    padding: 15px;
+.close{
+    display: none;
+    padding: 5px 8px;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
 }
 
-.tag-active{
-    text-align: left;
-    width: 170px;
-    padding: 15px;
-    background-color: yellow;
+.categories > div input{
+    display: none; 
+}
+.categories input + label{
+    padding: 12px;
+}
+.categories input:checked + label{
+    background-color: #FCC822;
+    font-weight: 500;
+    border-radius: 10px;
+} 
+.categories input:not(:checked) + label{
+    background-color: gray;
+    font-weight: 500;
+    border-radius: 10px;
+}
+.categories input:checked + label > .close{
+    display: inline-block;
+}
+
+.chips{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .btn3{
@@ -134,135 +148,28 @@ hr{
     bottom: 30px;
     right: 40px;
 }
-
-#quiz{
-    display: none;
-    width: 800px;
-    height: 500px;
-    position: absolute;
-    top: 50px;
-    padding: 30px;
-    margin: 50px 300px;
-    background-color: white;
-}
-.question{
-    background-color: #FCC822;
-    color: white;
-    font-size: 20px;
-    padding: 30px;
-    height: 50px;
-}
 .options{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
 }
-ol > li{
-    color: white;
-    background-color: #FFCD2E;
-    margin-top: 10px;
+.option{
+    margin: 15px;
+    padding: 10px;
 }
-.change{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.option label{
+    background-color: gray;
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
 }
-.tag[data-tag] {
-    cursor: pointer;
+.option input{
+    display: none;
 }
-
-.tag[data-tag]:hover {
-    background-color: lightyellow;
+.option input:checked + label{
+    background-color: #FCC822;
 }
 
-.tag[data-tag].selected {
-    background-color: yellow;
-} 
-
-@media (max-width: 480px) {
-    nav {
-        padding: 10px;
-    }
-
-    ul {
-        gap: 2rem;
-    }
-
-    .btn1 {
-        padding: 8px;
-    }
-
-    #hero {
-        padding: 0px 20px;
-        flex-direction: column;
-        height: auto;
-    }
-
-    .head {
-        font-size: 32px;
-        line-height: 32px;
-    }
-
-    .hero-img {
-        height: 300px;
-        padding-left: 0;
-    }
-
-    #Badge {
-        width: 100%;
-        margin: 20px;
-        padding-inline: 10px;
-    }
-
-    .TagBadge {
-        gap: 1rem;
-        padding: 15px 5px;
-    }
-
-    .tag,
-    .tag-active {
-        width: 100%;
-    }
-
-    .btn3 {
-        width: 100%;
-        bottom: 10px;
-        right: 0;
-    }
-
-    #quiz {
-        width: 100%;
-        margin: 20px;
-    }
-
-    .question {
-        padding: 15px;
-    }
-
-    .options {
-        align-items: center;
-    }
-
-    ol > li {
-        margin-top: 8px;
-    }
-
-    .change {
-        flex-direction: column;
-    }
-
-    .tag[data-tag] {
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .tag[data-tag]:hover {
-        background-color: lightyellow;
-    }
-
-    .tag[data-tag].selected {
-        background-color: yellow;
-    }
+.question-section{
+    display: none;
+    position: absolute;
+    top: 400px;
 }
-

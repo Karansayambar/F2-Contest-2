@@ -49,11 +49,7 @@ let quizData = [
     }
 ];
 
-let selectedTags = [];
-let currentCategoryIndex = 0;
-let currentQuestionIndex = 0;
-let userScore = 0;
-let filteredQuizData;
+
 
 function buttonOnClick() {
     let badge = document.getElementById('Badge');
@@ -68,129 +64,59 @@ function buttonOnClick() {
     }
 }
 
-function startQuize() {
-    filteredQuizData = quizData.filter(question => selectedTags.includes(question.id));
-    if (selectedTags.length >= 5) {
-        currentCategoryIndex = 0;
-        currentQuestionIndex = 0;
-        userScore = 0;
 
-        loadQuestion();
-    } else {
-        alert("Select at least 5 Tags to Start the Quiz");
-    }
-}
+let categories = quizData.map(item => item.category);
+const chipscontainer = document.querySelector("form > .chips");
 
-function toggleTag(event) {
-   
-    let tagId = event.target.id;
-
-    if (selectedTags.includes(tagId)) {
-        selectedTags = selectedTags.filter(selectedTag => selectedTag !== tagId);
-    } else {
-        selectedTags.push(tagId);
-    }
-
-    document.getElementById(tagId).classList = 'tag-active'
-}
-
-function loadQuestion() {
-    if (currentCategoryIndex < filteredQuizData.length) {
-        const questionContainer = document.getElementById('quiz-question-container');
-        const optionsContainer = document.getElementById('quiz-options-container');
-
-        const currentQuestion = filteredQuizData[currentCategoryIndex];
-
-        questionContainer.textContent = currentQuestion.questions[currentQuestionIndex].question;
-
-        optionsContainer.innerHTML = currentQuestion.questions[currentQuestionIndex].options
-            .map((option, index) => `<li onclick="checkAnswer(${index})">${option}</li>`)
-            .join('');
-
-        document.getElementById('quiz').style.display = 'block';
-        document.getElementById('Badge').style.display = 'none';
-    } else {
-        displayResults();
-    }
-}
-
-function checkAnswer(selectedOptionIndex) {
-    const currentQuestion = filteredQuizData[currentCategoryIndex].questions[currentQuestionIndex];
-    const selectedOption = currentQuestion.options[selectedOptionIndex];
-
-    if (selectedOption === currentQuestion.answer) {
-        userScore++;
-    }
-
-    nextQuestion();
-    loadQuestion();
-}
-
-function displayResults() {
-    const quizSection = document.getElementById('quiz');
-    const resultsSection = document.getElementById('results');
-
-    quizSection.style.display = 'none';
-    resultsSection.style.display = 'block';
-
-    document.getElementById('final-score').textContent = userScore;
-}
-
-function removeTag(tag) {
-    selectedTags = selectedTags.filter(selectedTag => selectedTag !== tag);
-    document.querySelector(`.tag[data-tag="${tag}"]`).style.backgroundColor = '';
-    toggleTag();
-}
+categories.forEach((category) => {
+    const chip = document.createElement("div");
+    chip.className = "chip"; 
+    chip.innerHTML = `
+        <input type="checkbox" value="${category}" id="${category}">
+        <label for="${category}">
+            <span>${category}</span>
+            <span class="close"><i class="fa-solid fa-xmark"></i></span>
+        </label>`;
+    chipscontainer.appendChild(chip);
+    chip.style.margin = "10px"
+});
 
 
-function nextQuestion() {
-    let flag = false;
-    quizData.map((category) => {
-        
-        if(category.questions.length == currentQuestionIndex + 1){
-            currentCategoryIndex++;
-            currentQuestionIndex = 0;
-            flag = true
+
+let homesection = document.querySelector(".btn1")
+const questionsection = document.getElementById("question-section");
+const form = document.querySelector(".categories");
+const username = document.getElementById("username");
+let selectedList = [];
+form.addEventListener("submit", (e) =>{
+    e.preventDefault();
+    let inputList = document.querySelectorAll(".categories input");
+    selectedList = []
+    for(let i = 0; i < inputList.length; i++){
+        if(inputList[i].checked){
+            selectedList.push(inputList[i].value);
         }
-            
+    }
+    if(selectedList.length < 2){
+        alert("please select at least 2 categories");
+    }else{
+       username.innerText = "karan";
+       buttonOnClick();
+       openQuestionSection();
+    }
+})
+
+function openQuestionSection(){
+    hero.style.display = "none";
+    let selectedCategoriesObject = quizData.filter(item =>{
+        return Boolean(selectedList.find(cat => cat===item.category));
     })
-    if(!flag){
-        currentQuestionIndex++;
-    }
-    loadQuestion();
-}
+    selectedCategoriesObject.forEach(selectedCategory =>{
+        questions.push(...selectedCategory.questions);
+    });
 
-function prevQuestion() {
-    if (currentCategoryIndex > 0) {
-        let flag = false;
-        quizData.map((category) => {
-            
-            if(currentQuestionIndex == 0){
-                currentCategoryIndex--;
-                currentQuestionIndex = category.questions.length -1;
-                flag = true
-            }
-        })
-        if(!flag){
-            currentQuestionIndex--;
-        }
-        console.log(currentCategoryIndex, currentQuestionIndex)
-        loadQuestion();
-    }
+activeQuestionIndex = 0;
+applyQuestionDetails();
+questionsection.style.display = "block";
 }
-
-function updateProgressBar() {
-    const progressBar = document.getElementById('progress-bar');
-    const progress = ((currentCategoryIndex + 1) / filteredQuizData.length) * 100;
-    progressBar.style.width = `${progress}%`;
-}
-
-function restartQuiz() {
-    document.getElementById('results').style.display = 'none';
-    document.getElementById('home').style.display = 'block';
-}
-
-// Add event listeners to your buttons
-document.getElementById('start-button').addEventListener('click', startQuiz);
-document.getElementById('restart-button').addEventListener('click', restartQuiz);
 
